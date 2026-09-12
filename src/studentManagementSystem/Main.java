@@ -32,7 +32,7 @@ public class Main {
 
             while (!valid) {
                 try {
-                    System.out.print("\nEnter your choice : ");
+                    System.out.print("\n-> Enter your choice : ");
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     valid = true;
@@ -99,4 +99,5 @@ public class Main {
         System.out.println();
     }
 }
+
 

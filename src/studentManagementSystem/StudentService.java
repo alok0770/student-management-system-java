@@ -13,29 +13,41 @@ public class StudentService {
     public void addStudent() {
 
 
-
-        System.out.print("Enter Student name : ");
+        System.out.print("-> Enter Student name : ");
         String name = scanner.nextLine().toUpperCase();
 
 
-        int rollNo =  getValidInt("-> Enter the roll number : ");
 
-        int marks =  getValidInt("-> Enter the marks : ");
+        int rollNo;
+
+        while(true) {
+
+            rollNo  = getValidInt("-> Enter the roll number : ");
+
+            if (isRollNoExists(rollNo)) {
+                System.out.println("-> Roll number already exists!\n");
+            } else {
+                break;
+            }
+        }
 
 
-        System.out.print("Enter Branch : ");
-        String branch = scanner.nextLine();
+        int marks = getValidInt("-> Enter the marks : ");
+
+
+        System.out.print("-> Enter Branch : ");
+        String branch = scanner.nextLine().toUpperCase();
 
         Student newStudent = new Student(name, rollNo, marks, branch);
         students.add(newStudent);
         System.out.println();
-        System.out.println("Student saved successfully !! \n");
+        System.out.println("-> Student saved successfully !! \n");
 
     }
 
     public void searchStudent() {
 
-        int rollNo =  getValidInt("-> Enter the roll number : ");
+        int rollNo = getValidInt("-> Enter the roll number : ");
 
 
         boolean found = false;
@@ -78,7 +90,7 @@ public class StudentService {
     public void deleteStudent() {
 
 
-        int rollNo =  getValidInt("-> Enter the roll number : ");
+        int rollNo = getValidInt("-> Enter the roll number : ");
 
         boolean found = false;
 
@@ -96,22 +108,36 @@ public class StudentService {
         }
     }
 
-    public static int getValidInt(String message){
+    public static int getValidInt(String message) {
 
-        int value ;
-        while(true){
+        int value;
+        while (true) {
 
-            try{
+            try {
                 System.out.print(message);
                 value = scanner.nextInt();
                 scanner.nextLine();
                 break;
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid Input !! ");
                 scanner.nextLine();
             }
         }
         return value;
     }
-}
+
+    public boolean isRollNoExists(int rollNo) {
+
+
+            for (int i = 0; i < students.size(); i++) {
+                if (students.get(i).getRollNo() == rollNo) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+
+
 
